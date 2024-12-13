@@ -1,0 +1,226 @@
+[gd_scene load_steps=14 format=3 uid="uid://bnfh4a0twaqyk"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_n3xvb"]
+[ext_resource type="PackedScene" uid="uid://bmq8uads7dsjy" path="res://scenes/player.tscn" id="2_8gjjt"]
+[ext_resource type="Script" path="res://scripts/label.gd" id="2_o2cse"]
+[ext_resource type="PackedScene" uid="uid://dnsvmyyx68m0" path="res://scenes/hearts.tscn" id="3_n04ui"]
+[ext_resource type="Script" path="res://scenes/spawn_timer.gd" id="5_5baie"]
+[ext_resource type="PackedScene" uid="uid://dv88c7pu7tews" path="res://scenes/ground.tscn" id="5_wvnw2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2uhkh"]
+font_size = 70
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fbfe6"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_v3mft"]
+sky_material = SubResource("ProceduralSkyMaterial_fbfe6")
+
+[sub_resource type="Environment" id="Environment_ms4fp"]
+background_mode = 2
+sky = SubResource("Sky_v3mft")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.2
+volumetric_fog_emission = Color(0.340339, 0.340339, 0.340339, 1)
+volumetric_fog_gi_inject = 0.64
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_lbklv"]
+vertices = PackedVector3Array(-22.9439, 0.441467, -24.5588, -22.9439, 0.441467, -24.0588, 21.5561, 0.441467, -24.0588, 21.5561, 0.441467, -24.5588, 23.8061, 0.441467, -24.5588, 23.8061, 0.441467, -24.0588, 24.5561, 0.441467, -24.0588, 24.5561, 0.441467, -24.5588, -1.19392, 0.441467, -1.80879, -0.193924, 0.441467, -2.05879, -0.193924, 0.441467, -22.0588, -22.9439, 0.441467, -0.308788, -1.44392, 0.441467, -0.0587883, -22.9439, 0.441467, -22.0588, 1.05608, 0.441467, -1.80879, 1.30608, 0.441467, -0.308788, 21.5561, 0.441467, -0.308788, 21.5561, 0.441467, -22.0588, 23.8061, 0.441467, -22.0588, 23.8061, 0.441467, 20.4412, 24.5561, 0.441467, 20.4412, 24.5561, 0.441467, -22.0588, 0.056076, 0.441467, 20.4412, 0.056076, 0.441467, 1.44121, -1.19392, 0.441467, 0.941212, -22.9439, 0.441467, 20.4412, -0.193924, 2.69147, -0.308788, -0.193924, 2.69147, 0.191212, 0.306076, 2.69147, 0.191212, 0.306076, 2.69147, -0.308788, 1.30608, 0.441467, 0.691212, 21.5561, 0.441467, 20.4412, -22.9439, 0.441467, 22.6912, -22.9439, 0.441467, 24.6912, 21.5561, 0.441467, 24.6912, 21.5561, 0.441467, 22.6912, 23.8061, 0.441467, 22.6912, 23.8061, 0.441467, 24.6912, 24.5561, 0.441467, 24.6912, 24.5561, 0.441467, 22.6912)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5), PackedInt32Array(10, 9, 8), PackedInt32Array(8, 12, 10), PackedInt32Array(10, 12, 11), PackedInt32Array(10, 11, 13), PackedInt32Array(10, 14, 9), PackedInt32Array(15, 14, 16), PackedInt32Array(16, 14, 17), PackedInt32Array(17, 14, 10), PackedInt32Array(21, 20, 18), PackedInt32Array(18, 20, 19), PackedInt32Array(24, 23, 22), PackedInt32Array(24, 22, 12), PackedInt32Array(12, 22, 11), PackedInt32Array(11, 22, 25), PackedInt32Array(29, 28, 26), PackedInt32Array(26, 28, 27), PackedInt32Array(23, 30, 22), PackedInt32Array(22, 30, 31), PackedInt32Array(31, 30, 16), PackedInt32Array(30, 15, 16), PackedInt32Array(35, 34, 32), PackedInt32Array(32, 34, 33), PackedInt32Array(39, 38, 36), PackedInt32Array(36, 38, 37)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3kbh"]
+albedo_color = Color(0.676669, 0.661617, 0.673132, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqwg3"]
+albedo_color = Color(0.326103, 0.604093, 0.347894, 1)
+
+[node name="WORLD" type="Node3D"]
+script = ExtResource("1_n3xvb")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1150.0
+offset_bottom = 649.0
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = -121.0
+offset_top = -72.0
+offset_right = 2969.0
+offset_bottom = 1915.0
+color = Color(0.803922, 0, 0.105882, 0.443137)
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1057.0
+offset_top = 1286.0
+offset_right = 1460.0
+offset_bottom = 1382.0
+text = "bomboclaat"
+label_settings = SubResource("LabelSettings_2uhkh")
+horizontal_alignment = 1
+script = ExtResource("2_o2cse")
+
+[node name="HBoxContainer" parent="UI" instance=ExtResource("3_n04ui")]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1.0
+offset_top = -4.0
+offset_right = 501.0
+offset_bottom = 341.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.213, 6.5, -20.43)
+light_color = Color(0.292042, 0.46477, 0.615014, 1)
+light_energy = 16.0
+omni_range = 15.4665
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.3583, 6.5322, -20.8031)
+light_color = Color(0.292042, 0.46477, 0.615014, 1)
+light_energy = 16.0
+omni_range = 15.4665
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.0437, 6.5322, 18.976)
+light_color = Color(0.292042, 0.46477, 0.615014, 1)
+light_energy = 16.0
+omni_range = 15.4665
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2478, 6.53221, 19.1227)
+light_color = Color(0.292042, 0.46477, 0.615014, 1)
+light_energy = 16.0
+omni_range = 15.4665
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.692791, 58.1119, 0.513851)
+light_energy = 4.571
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.152
+distance_fade_enabled = true
+distance_fade_begin = 0.0
+distance_fade_length = 72.97
+omni_range = 15.4665
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ms4fp")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.844313, -0.531842, -0.0654199, 0.210563, 0.217027, 0.953186, -0.492746, -0.818562, 0.295225, -0.100271, 31.4354, 6.24782)
+light_color = Color(0.545946, 0.111274, 0.0924933, 1)
+light_energy = 1.152
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_lbklv")
+navigation_layers = 16385
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 0.959732, 0.280918, 0, -0.280918, 0.959732, -0.459792, 18.7431, 16.4114)
+material_override = SubResource("StandardMaterial3D_k3kbh")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(50.9363, 100, 0.463)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 0.955449, -0.295158, 0, 0.295158, 0.955449, 0.076829, 18.7259, -17.5797)
+material_override = SubResource("StandardMaterial3D_k3kbh")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(50.4197, 100, 0.463)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(-4.18911e-08, -0.285571, 0.958357, -1.24827e-08, 0.958357, 0.285571, -1, 0, -4.37114e-08, 17.3737, 18.7259, 0.0609541)
+material_override = SubResource("StandardMaterial3D_k3kbh")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(49.9404, 100, 0.463)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(-4.13083e-08, 0.327003, 0.945023, 1.42938e-08, 0.945023, -0.327003, -1, 0, -4.37114e-08, -17.875, 18.7259, -0.122823)
+material_override = SubResource("StandardMaterial3D_k3kbh")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(50.308, 100, 0.463)
+
+[node name="player" parent="NavigationRegion3D" instance=ExtResource("2_8gjjt")]
+
+[node name="floor" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0078913, 0)
+material_override = SubResource("StandardMaterial3D_iqwg3")
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(50, 0.001, 50)
+
+[node name="spawns" type="Node3D" parent="."]
+
+[node name="spawn1" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3567, -1.90735e-06, -19.2679)
+
+[node name="spawn2" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.9827, -1.90735e-06, 16.9617)
+
+[node name="spawn3" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.7708, -1.90735e-06, 18.4445)
+
+[node name="spawn4" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.4227, -1.90735e-06, -19.4636)
+
+[node name="spawn5" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8783, -1.90735e-06, -8.44014)
+
+[node name="spawn6" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.19282, -1.90735e-06, -7.3236)
+
+[node name="spawn7" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0165, -1.90735e-06, 8.67082)
+
+[node name="spawn8" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7739, -1.90735e-06, 8.52682)
+
+[node name="spawn9" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.64876, -1.90735e-06, -0.135054)
+
+[node name="spawn10" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2461, -1.90735e-06, -0.165534)
+
+[node name="spawn11" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42715, -1.90735e-06, 4.53538)
+
+[node name="spawn12" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.379642, -1.90735e-06, -8.34352)
+
+[node name="spawn13" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.379642, -1.90735e-06, -17.3699)
+
+[node name="spawn14" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.8652, -1.90735e-06, -0.386366)
+
+[node name="spawn15" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.159319, -5.72205e-06, 17.9871)
+
+[node name="spawn16" type="Node3D" parent="spawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.0878, -5.72205e-06, -0.271549)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+script = ExtResource("5_5baie")
+
+[node name="node3D" parent="." instance=ExtResource("5_wvnw2")]
+
+[connection signal="player_hit" from="NavigationRegion3D/player" to="." method="_on_player_player_hit"]
+[connection signal="player_hit" from="NavigationRegion3D/player" to="UI/HBoxContainer" method="_on_player_player_hit"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

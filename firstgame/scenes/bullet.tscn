@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://r8cu2346jpa5"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_k23aq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qed2x"]
+albedo_color = Color(0.513041, 0.65045, 1.34766e-06, 1)
+emission_enabled = true
+emission = Color(0.999772, 0.186804, 0.206528, 1)
+emission_energy_multiplier = 9.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_dna1x"]
+size = Vector3(0.05, 1, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3qc5"]
+albedo_color = Color(0.386685, 0.716111, 0.374714, 1)
+emission_enabled = true
+emission = Color(0.999693, 0.152359, 0.109169, 1)
+emission_energy_multiplier = 7.47
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g64lk"]
+direction = Vector3(-1, 0, 0)
+spread = 180.0
+initial_velocity_min = 12.0
+initial_velocity_max = 15.0
+scale_min = 0.5
+scale_max = 1.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_rfk4e"]
+size = Vector3(0.04, 0.04, 0.04)
+
+[node name="Bullet" type="Node3D"]
+script = ExtResource("1_k23aq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.80825e-07, 11, -4.80825e-07, 0, -4.80825e-07, -11, -11, -4.80825e-07, 2.10175e-14, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_qed2x")
+mesh = SubResource("BoxMesh_dna1x")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(4.045, 0, 0, 0, 4.045, 0, 0, 0, 4.045, -2.27851, 0, 0)
+target_position = Vector3(-1, 0, 0)
+collision_mask = 2
+collide_with_areas = true
+debug_shape_thickness = 5
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.97202, 0, 0)
+material_override = SubResource("StandardMaterial3D_f3qc5")
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+randomness = 0.04
+collision_base_size = 7.77
+process_material = SubResource("ParticleProcessMaterial_g64lk")
+draw_pass_1 = SubResource("BoxMesh_rfk4e")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
